@@ -1,0 +1,75 @@
+.container {
+  background: url('../../../assets/background.jpg') no-repeat center/cover;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8); /* Lớp phủ để tăng khả năng đọc */
+  border-radius: 8px;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+}
+
+.error {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.button {
+  padding: 10px 20px;
+  background: #4a6cf7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.button:hover {
+  background: #3a56d8;
+}
+
+.buttonSecondary {
+  background: #6c757d;
+}
+
+.buttonSecondary:hover {
+  background: #5a6268;
+}
+
+.buttonDanger {
+  background: #dc3545;
+}
+
+.buttonDanger:hover {
+  background: #bd2130;
+}
+
+.item {
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
