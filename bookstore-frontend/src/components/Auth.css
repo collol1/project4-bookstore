@@ -1,0 +1,127 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+}
+
+.auth-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 450px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.auth-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+.auth-header {
+  padding: 30px;
+  background: #4a6cf7;
+  color: white;
+  text-align: center;
+}
+
+.auth-header h2 {
+  margin: 0 0 10px;
+  font-size: 28px;
+}
+
+.auth-header p {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 16px;
+}
+
+.auth-form {
+  padding: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #dce4ec;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #4a6cf7;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.2);
+}
+
+.auth-button {
+  width: 100%;
+  padding: 14px;
+  background: #4a6cf7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.auth-button:hover {
+  background: #3a56d8;
+  transform: translateY(-2px);
+}
+
+.auth-footer {
+  padding: 20px 30px;
+  text-align: center;
+  border-top: 1px solid #f0f4f8;
+  color: #7f8c8d;
+  font-size: 15px;
+}
+
+.auth-footer a {
+  color: #4a6cf7;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+.auth-success {
+  background: #d4edda;
+  color: #155724;
+  padding: 15px;
+  margin: 0 30px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.auth-error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  margin: 0 30px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+}

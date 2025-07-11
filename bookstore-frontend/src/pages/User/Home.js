@@ -1,58 +1,96 @@
-import BookCard from '../../components/BookCard';
-import { useContext } from 'react';
-import { CartContext } from '../../context/CartContext';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { CartContext } from '../../context/CartContext';
 import api from '../../api/api';
-import './Home.css'; // Nhập file CSS
+import './Home.css';
+import './Books.css';
+import Footer from '../../components/Footer'; // Import Footer
 
 export default function Home() {
   const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { addToCart } = useContext(CartContext);
-   const location = useLocation();
+  const location = useLocation();
 
-  // Sử dụng useEffect để gọi API khi component mount
   useEffect(() => {
-    api.get('/books').then(r => {
-      if (r.data && r.data.data) {
-        setBooks(r.data.data);
-      } else {
-        setBooks([]);
+    const fetchBooks = async () => {
+      try {
+        const response = await api.get('/books');
+        setBooks(response.data?.data || []);
+      } catch (error) {
+        console.error('Lỗi khi tải sách:', error);
+      } finally {
+        setLoading(false);
       }
-    });
+    };
+
+    fetchBooks();
   }, []);
 
-  return (  <div>
+  if (loading) return <div className="loading">Đang tải danh sách sách...</div>;
+
+  return (
+    <div className="homepage">
       {location.state?.message && (
-        <div style={{ color: 'green', margin: 10 }}>{location.state.message}</div>
+        <div className="success-message">{location.state.message}</div>
       )}
-    <>
-      <div className="homepage">
-      <div className="book-list">
-        <h1>Danh sách sách</h1>
-        <div className="book-grid">
-          {books.map(b => (
-            <div key={b.id} className="book-item">
-              <h4>{b.title}</h4>
-              <p>{b.description ? b.description.slice(0, 100) + '...' : 'Không có mô tả'}</p>
-              <p>Tác giả: {b.author ? b.author.name : 'N/A'}</p>
-              <p>Thể loại: {b.category ? b.category.name : 'N/A'}</p>
-              <p>Nhà xuất bản: {b.publisher ? b.publisher.name : 'N/A'}</p>
-              <p>Ngày xuất bản: {b.publishedDate ? new Date(b.publishedDate).toLocaleDateString() : 'N/A'}</p>
-              <p>Đánh giá: {b.rating ? b.rating.toFixed(1) : 'Chưa có đánh giá'}</p>
-              <p>Số lượng: {b.stock ? b.stock : 'Hết hàng'}</p>
-             <button onClick={() =>  addToCart(b)} style={{ backgroundColor: 'green', color: 'white' }} url={'/cart'}>
-                Thêm vào giỏ
-              </button>
-              <p>{b.price ? `${b.price.toLocaleString()} VND` : 'N/A'}</p>
-              <Link to={`/books/${b.id}` }><button style={{ backgroundColor: 'orange', color: 'white' }}>Chi tiết</button></Link>
-            </div>
-          ))}
-        </div>
-      </div>
-        </div>
       
-    </>
+      <div className="books-page">
+        <h1>Sách Mới</h1>
+        
+        {books.length === 0 ? (
+          <div className="no-books">
+            <p>Không có sách nào được tìm thấy.</p>
+          </div>
+        ) : (
+          <div className="book-list">
+            {books.map(book => (
+              <div key={book.id} className="book-card">
+                <div className="book-image">
+                  <img 
+                    src={book.image_url || '/placeholder-book.jpg'} 
+                    alt={book.title}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = '/placeholder-book.jpg';
+                    }}
+                  />
+                </div>
+                <div className="book-details">
+                  <h3>{book.title}</h3>
+                  <p className="author">Tác giả: {book.author_name}</p>
+                  <p className="price">
+                    {book.price ? `${book.price.toLocaleString()} VND` : 'Liên hệ'}
+                  </p>
+                  <p className="stock">Tồn kho: {book.stock} cuốn</p>
+                  <p className="description">
+                    {book.description?.slice(0, 100) || 'Chưa có mô tả cho cuốn sách này.'}
+                    {book.description?.length > 100 && '...'}
+                  </p>
+                  
+                  <div className="book-actions">
+                    <button 
+                      className="button" 
+                      onClick={() => addToCart(book)}
+                    >
+                      Thêm vào giỏ
+                    </button>
+                    <Link 
+                      to={`/books/${book.id}`} 
+                      className="button buttonSecondary"
+                    >
+                      Chi tiết
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    
+      <Footer />
+    
     </div>
   );
 }

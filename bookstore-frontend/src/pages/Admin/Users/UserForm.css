@@ -1,0 +1,143 @@
+.user-form-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.form-header h2 {
+  color: #2c3e50;
+  font-size: 28px;
+  margin: 0;
+}
+
+.form-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  padding: 30px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #dce4ec;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #f39c12;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #f0f4f8;
+}
+
+.btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-back {
+  background: #f8f9fa;
+  color: #f39c12;
+  border: 1px solid #dce4ec;
+}
+
+.btn-back:hover {
+  background: #f0f4f8;
+}
+
+.btn-cancel {
+  background: #f8f9fa;
+  color: #7f8c8d;
+}
+
+.btn-cancel:hover {
+  background: #f0f4f8;
+}
+
+.btn-submit {
+  background: #f39c12;
+  color: white;
+  min-width: 120px;
+}
+
+.btn-submit:hover {
+  background: #d35400;
+}
+
+.btn-submit:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.form-error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  border-left: 4px solid #dc3545;
+}
+
+.form-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+.form-loading p {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #f39c12;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(243, 156, 18, 0.2);
+  border-radius: 50%;
+  border-top-color: #f39c12;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

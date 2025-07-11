@@ -47,7 +47,7 @@ class Order {
         await OrderItem.create(
           orderId, 
           item.bookId, 
-          item.quantity, 
+          item.quantity,  
           item.price,
           connection
         );

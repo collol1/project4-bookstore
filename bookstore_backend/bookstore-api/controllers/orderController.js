@@ -4,13 +4,13 @@ const Order = require('../models/Order');
 // @route   POST /api/orders
 exports.createOrder = async (req, res) => {
   try {
+    // Sử dụng req.user.id từ middleware
+    const userId = req.user.id;
+
     const { 
       totalPrice, 
       paymentMethod, 
       shippingAddress, 
-      billingAddress, 
-      contactPhone, 
-      notes,
       items 
     } = req.body;
 
@@ -20,13 +20,10 @@ exports.createOrder = async (req, res) => {
     }
 
     const orderId = await Order.create({
-      userId: req.user.id,
+      userId,
       totalPrice,
       paymentMethod,
       shippingAddress,
-      billingAddress,
-      contactPhone,
-      notes,
       items
     });
 
@@ -37,6 +34,7 @@ exports.createOrder = async (req, res) => {
       data: order
     });
   } catch (error) {
+    console.error('Create order error:', error);
     res.status(500).json({ 
       success: false,
       error: 'Server error: ' + error.message 

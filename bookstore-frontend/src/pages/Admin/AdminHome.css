@@ -1,0 +1,87 @@
+.admin-home-container {
+  padding: 30px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+  min-height: 100vh;
+}
+
+.admin-home-title {
+  color: #2c3e50;
+  font-size: 32px;
+  margin-bottom: 30px;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.admin-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  padding: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: #3498db;
+}
+
+.admin-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.book-card:before { background: #e74c3c; }
+.category-card:before { background: #2ecc71; }
+.author-card:before { background: #9b59b6; }
+.user-card:before { background: #f39c12; }
+
+.admin-card:hover:before {
+  height: 100%;
+  opacity: 0.05;
+  transition: height 0.4s ease;
+}
+
+.card-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.admin-card:hover .card-icon {
+  transform: scale(1.2);
+}
+
+.admin-card-title {
+  color: #2c3e50;
+  font-size: 22px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+.admin-card-description {
+  color: #7f8c8d;
+  font-size: 16px;
+  position: relative;
+  z-index: 1;
+}

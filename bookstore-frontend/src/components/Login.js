@@ -1,61 +1,72 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import './Auth.css'; // CSS chung cho auth
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleSubmit = async e => {
+  // Hiển thị thông báo thành công nếu có
+  const successMessage = location.state?.successMessage;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await login(email, password);
       navigate('/');
     } catch (err) {
-      alert(err.response?.data?.error || 'Đăng nhập thất bại');
+      setError(err.response?.data?.error || 'Đăng nhập thất bại');
     }
   };
 
   return (
-    
-    <div style={{ maxWidth: 400, margin: '50px auto' }} className="login-container">
-      
-      <h2>Đăng nhập</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-           type="email"
-           placeholder="Email"
-            value={email}
-             onChange={e => setEmail(e.target.value)}
-               required
-          />
+    <div className="auth-container">
+      <div className="auth-card">
+        <div className="auth-header">
+          <h2>Đăng nhập tài khoản</h2>
+          <p>Chào mừng trở lại với cửa hàng sách của chúng tôi</p>
         </div>
-        <div style={{ marginTop: 10 }}>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-          />
+        
+        {successMessage && <div className="auth-success">{successMessage}</div>}
+        {error && <div className="auth-error">{error}</div>}
+        
+        <form onSubmit={handleSubmit} className="auth-form">
+          <div className="form-group">
+            <label>Email *</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="Nhập email"
+            />
+          </div>
+          
+          <div className="form-group">
+            <label>Mật khẩu *</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Nhập mật khẩu"
+            />
+          </div>
+          
+          <button type="submit" className="auth-button">
+            Đăng nhập
+          </button>
+        </form>
+        
+        <div className="auth-footer">
+          Chưa có tài khoản? <Link to="/register">Đăng ký ngay</Link>
         </div>
-        <button
-  style={{
-    marginTop: 20,
-    backgroundColor: '#4CAF50', // xanh lá
-    color: 'white',
-    border: 'none',
-  }}
-  type="submit"
->
-  Login
-</button>
-
-      </form>
+      </div>
     </div>
-    
   );
 }

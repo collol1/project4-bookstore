@@ -1,39 +1,33 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const e = require('express');
 
 // @desc    Register a new user
 // @route   POST /api/auth/register
 // authController.js – chỉnh imports như hiện tại
 exports.register = async (req, res) => {
-  console.log('BODY REGISTER:', req.body);
-  // Kiểm tra role có truyền vào không, nếu không thì mặc định là 'admin'
-  if (!req.body.role) {
-    req.body.role = 'admin';
-  } 
   try {
-    const { username, email, password, role } = req.body;
+    const { username, email, password, role = 'user' } = req.body; // Mặc định role là user
 
-    // Check if user exists
+    // Kiểm tra email đã tồn tại
     const userExists = await User.findByEmail(email);
     if (userExists) {
-      return res.status(400).json({ error: 'Email already registered' });
+      return res.status(400).json({ error: 'Email đã được đăng ký' });
     }
 
-    // Create user với role truyền vào
+    // Tạo user mới
     await User.create({ username, email, password, role });
     
-    const newUser = await User.findByEmail(email);
-    const { password: _, ...userWithoutPassword } = newUser;
-
     res.status(201).json({
       success: true,
-      data: userWithoutPassword
+      message: 'Đăng ký thành công'
     });
   } catch (error) {
+    console.error('Registration error:', error);
     res.status(500).json({ 
       success: false,
-      error: 'Server error' 
+      error: 'Lỗi máy chủ' 
     });
   }
 };
@@ -88,9 +82,7 @@ exports.getMe = async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Remove password from user object
     const { password, ...userWithoutPassword } = user;
-
     res.json({
       success: true,
       data: userWithoutPassword
@@ -101,4 +93,32 @@ exports.getMe = async (req, res) => {
       error: 'Server error' 
     });
   }
+}; // KẾT THÚC HÀM getMe Ở ĐÂY
+
+// Đưa logout và refreshToken ra ngoài
+exports.logout = (req, res) => {
+  res.status(200).json({ success: true, data: {} }); 
 };
+
+exports.refreshToken = async (req, res) => {
+  const { refreshToken } = req.body;
+  if (!refreshToken) {
+    return res.status(400).json({ error: 'No refresh token provided' });
+  }
+
+  try {
+    const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+    const user = await User.findById(decoded.id);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    const accessToken = jwt.sign(
+      { id: decoded.id, role: decoded.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
+    );
+
+    res.json({ accessToken });
+  } catch (err) {
+    return res.status(401).json({ error: 'Invalid or expired refresh token' });
+  }
+}; // KẾT THÚC refreshToken

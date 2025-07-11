@@ -2,15 +2,22 @@ const express = require('express');
 const router = express.Router();
 const orderController = require('../controllers/orderController');
 const { authenticate, authorizeAdmin } = require('../middlewares/authMiddleware');
-const { idValidation, orderValidation, paginationValidation } = require('../middlewares/validationMiddleware');
 
-router.post('/', authenticate, orderValidation, orderController.createOrder);
-router.get('/my-orders', authenticate, orderController.getMyOrders);
-router.get('/:id', authenticate, idValidation, orderController.getOrderById);
-router.get('/', authenticate, authorizeAdmin, paginationValidation, orderController.getAllOrders);
-router.put('/:id/status', authenticate, authorizeAdmin, idValidation, orderController.updateOrderStatus);
-router.put('/:id/payment-status', authenticate, authorizeAdmin, idValidation, orderController.updatePaymentStatus);
-router.put('/:id/cancel', authenticate, idValidation, orderController.cancelOrder);
-router.get('/stats', authenticate, authorizeAdmin, orderController.getOrderStats);
+// Tất cả routes đều yêu cầu xác thực
+router.use(authenticate);
+
+router.post('/', orderController.createOrder);
+router.get('/my-orders', orderController.getMyOrders);
+router.get('/:id', orderController.getOrderById);
+
+// Các route admin yêu cầu quyền admin
+router.use(authorizeAdmin);
+router.get('/', orderController.getAllOrders);
+router.put('/:id/status', orderController.updateOrderStatus);
+router.put('/:id/payment-status', orderController.updatePaymentStatus);
+router.get('/stats', orderController.getOrderStats);
+
+// Hủy đơn hàng không yêu cầu admin
+router.put('/:id/cancel', orderController.cancelOrder);
 
 module.exports = router;

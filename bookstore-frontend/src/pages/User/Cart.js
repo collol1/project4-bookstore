@@ -19,27 +19,37 @@ export default function Cart() {
 
   return (
     <div className='homepage'>
-      <h2>Giỏ hàng</h2>
-      
-      {cartItems.map(item => (
-        <div key={item.id} className={styles.item}>
-          {item.title} - {item.price} x {item.qty}
-          <button
-            className={styles.button}
-            onClick={() => updateQty(item.id, 1)}
-            style={{ background: '#4CAF50', color: 'white' }}
-          >+</button>
-          <button className={styles.button} onClick={() => updateQty(item.id, -1)} 
-            style={{ background: '#4CAF50', color: 'white' }}
-            >-</button>
-          <button className={styles.buttonDanger} onClick={() => removeFromCart(item.id)}
-            style={{ background: '#f44336', color: 'white' }}>Xóa</button>
-        </div>
-      ))}
-      
-      <h3>Tổng cộng: {total} VND</h3>
-      <button className={styles.button} onClick={() => navigate('/checkout')}
-        style={{ background: '#f44336', color: 'white' }}>Thanh toán</button>
+      <div className={styles.cart}>
+        <h2>Giỏ hàng</h2>
+        {cartItems.map(item => (
+          <div key={item.id} className={styles.item}>
+            {item.title} - {item.price} VND x {item.qty}
+            <div>
+              <button
+                className={styles.button}
+                onClick={() => updateQty(item.id, 1)}
+                style={{ background: '#28a745', color: 'white' }}
+              >+</button>
+              <button
+                className={styles.button}
+                onClick={() => updateQty(item.id, -1)}
+                style={{ background: '#28a745', color: 'white' }}
+              >-</button>
+              <button
+                className={styles.buttonDanger}
+                onClick={() => removeFromCart(item.id)}
+                style={{ background: '#dc3545', color: 'white' }}
+              >Xóa</button>
+            </div>
+          </div>
+        ))}
+        <h3>Tổng cộng: {total} VND</h3>
+        <button
+          className={`${styles.button} ${styles.checkoutButton}`}
+          onClick={() => navigate('/checkout')}
+          style={{ color: 'white' }}
+        >Thanh toán</button>
+      </div>
     </div>
   );
 }

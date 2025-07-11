@@ -2,6 +2,62 @@
   padding: 20px;
   background-color: #f9f9f9;
 }
+
 .item {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #ffffff; /* White text for better contrast */
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle separator */
+}
+
+.cart {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53); /* Vibrant gradient background */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+  padding: 30px;
+  width: calc(35% - 20px); /* Slightly larger width */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #ffffff; /* White text for contrast */
+  font-size: 22px;
+  font-weight: bold;
+  margin: 20px auto; /* Centered with margin */
+}
+
+.cart:hover {
+  transform: translateY(-5px); /* Subtle lift effect on hover */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+.button, .buttonDanger {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.3s ease;
+}
+
+.button {
+  background: #28a745 !important; /* Brighter green for buttons */
+}
+
+.buttonDanger {
+  background: #dc3545 !important; /* Brighter red for delete button */
+}
+
+.checkoutButton {
+  background: #007bff !important; /* Bright blue for checkout button */
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: bold;
+  animation: float 2s ease-in-out infinite; /* Floating animation */
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }

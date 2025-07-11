@@ -1,12 +1,18 @@
 /* Thiết lập background cho trang chủ */
 .homepage {
-  background-image: url('#'); /* Thay bằng đường dẫn hình ảnh thực tế */
+  background-image: url('../../assets/background.jpg'); /* Đặt đúng đường dẫn ảnh */
   background-size: cover;
   background-position: center;
   min-height: 100vh;
   position: relative;
 }
-
+.homepage > .books-page {
+  flex: 1;
+}
+.homepage, .navbar {
+  margin: 0;
+  padding: 0;
+}
 /* Lớp phủ để tăng độ tương phản */
 .homepage::before {
   content: '';
@@ -55,21 +61,51 @@
 /* Nội dung chính */
 
 /* Danh sách sách */
-.book-list {
-  padding: 20px;
-  
+.books-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  position: relative;
+  z-index: 1;
 }
 
-.book-grid {
+.books-page h1 {
+  text-align: center;
+  font-size: 36px;
+  color: #2c3e50;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #eee;
+}
+
+.success-message {
+  background: #d4edda;
+  color: #155724;
+  padding: 15px;
+  text-align: center;
+  margin: 0 auto 30px;
+  max-width: 1200px;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.book-actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  
+  gap: 10px;
+  margin-top: 15px;
 }
 
-.book-item {
-  border: 1px solid #efb6b6;
-  padding: 10px;
-  width: 200px;
-  background-color: #4a6cf7;
+.book-actions .button {
+  padding: 8px 15px;
+  font-size: 14px;
+  margin-top: 0;
+  flex: 1;
+  text-align: center;
+}
+
+.book-actions .buttonSecondary {
+  background: #6c757d;
 }
